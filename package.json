@@ -1,0 +1,44 @@
+{
+  "name": "flapsentry",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
+  },
+  "dependencies": {
+    "ac-qrcode": "^1.0.1",
+    "ac-qrcode-rn": "^0.2.1",
+    "jest-haste-map": "^24.5.0",
+    "prop-types": "^15.7.2",
+    "pubnub-react": "^1.2.0",
+    "react": "^16.8.4",
+    "react-native": "^0.58.0",
+    "react-native-android-wifi": "0.0.39",
+    "react-native-camera": "^1.13.1",
+    "react-native-elements": "^1.0.0",
+    "react-native-gesture-handler": "^1.1.0",
+    "react-native-linear-gradient": "^2.5.3",
+    "react-native-parallax-header": "^1.1.2",
+    "react-native-push-notification": "^3.1.2",
+    "react-native-qrcode": "^0.2.7",
+    "react-native-qrcode-scanner": "^1.1.2",
+    "react-native-root-toast": "^3.0.2",
+    "react-native-router-flux": "^4.0.6",
+    "react-native-sqlite-storage": "^3.3.10",
+    "react-native-vector-icons": "^6.4.0",
+    "react-native-wifi": "^1.0.1",
+    "react-navigation": "^3.3.2",
+    "toggle-switch-react-native": "^2.0.2"
+  },
+  "devDependencies": {
+    "babel-core": "7.0.0-bridge.0",
+    "babel-jest": "24.4.0",
+    "jest": "24.4.0",
+    "metro-react-native-babel-preset": "0.51.0",
+    "react-test-renderer": "16.6.3"
+  },
+  "jest": {
+    "preset": "react-native"
+  }
+}
