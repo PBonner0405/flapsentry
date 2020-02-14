@@ -122,7 +122,9 @@ export default class HomeView extends React.Component {
             //........................
         }
 
+        var cnt = 0;
         setInterval(()=>{
+            cnt ++;
             var request = new XMLHttpRequest();
             var req_url = "http://13.229.126.58/api/getCurrentStatus.php?ssid=" + this.state.esp_ssid; //"EYE-DROP-AP";//this.state.esp_ssid;
             request.onreadystatechange = (e) => {
@@ -138,33 +140,26 @@ export default class HomeView extends React.Component {
                         T2: response.fsr02,
                         T3: response.fsr03,
                     });
-                    if(this.state.DB_FLAG){
-                        console.log("db flag is true..");
-                        db.transaction((tx) => {
-                            tx.executeSql(
-                                'INSERT INTO logtable (esp_ssid, t1, t2, t3) VALUES (?,?,?,?)'
-                                ,[this.state.esp_ssid, this.state.T1, this.state.T2, this.state.T3]
-                                ,(tx, res) => {
-                                    console.log("Query completed",tx, res);
-                                }
-                                ,(tx,err) => console.log("what is wrong?", tx, err)
-                            )
-                        });
-                        // db.executeSql(
-                        //     'INSERT INTO log_table (esp_ssid, t1, t2, t3) VALUES (?,?,?,?)',
-                        //     [this.state.esp_ssid, this.state.T1, this.state.T2, this.state.T3])
-                        // .then(([results])=> {
-                        //     console.log("inserting data to db:...", results);
-                        //     if (results.rowsAffected > 0){
-                        //         console.log("successfully, added!");
-                        //     }
-                        //     else{
-                        //         console.log("something went wrong...");
-                        //     }
-                        // });
-                        //     () => console.log("hmm..."),
-                        //     (err) => console.log("what else?:", err),
-                    }
+                    if(cnt >= 49){
+                        cnt = 0;
+                        if(this.state.DB_FLAG){
+                            // console.log("db flag is true..");
+                            var month = response.created_at.substring(5,7);
+                            var day = response.created_at.substring(8,10);
+                            var hour = response.created_at.substring(11,13);
+                            var min = response.created_at.substring(14,16);
+                            db.transaction((tx) => {
+                                tx.executeSql(
+                                    'INSERT INTO logtable (esp_ssid, t1, t2, t3, month, day, hour, min) VALUES (?,?,?,?,?,?,?,?)'
+                                    ,[this.state.esp_ssid, this.state.T1, this.state.T2, this.state.T3, month, day, hour, min]
+                                    ,(tx, res) => {
+                                        // console.log("Query completed",tx, res);
+                                    }
+                                    ,(tx,err) => console.log("what is wrong?", tx, err)
+                                )
+                            });
+                        }
+                    }                    
                 } else {
                     console.log('error');
                 }
